@@ -1,0 +1,50 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+
+# Virtual environments
+.venv
+
+# --- Build outputs ---
+build/
+dist/
+bin/
+out/
+*.o
+*.a
+*.so
+*.dll
+*.exe
+
+# --- Model files ---
+models/
+*.gguf
+*.bin
+*.ckpt
+
+# --- Python virtual environments ---
+.venv/
+env/
+__pycache__/
+*.pyc
+*.pyo
+
+# --- Logs and caches ---
+*.log
+*.tmp
+*.cache/
+.cache/
+*.pid
+
+# --- Editor/OS files ---
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+
+# --- Dev container specific ---
+.devcontainer/.env

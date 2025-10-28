@@ -3,6 +3,9 @@
   "build": {
     "dockerfile": "Dockerfile"
   },
+  "runArgs": [
+    "--gpus", "all"
+  ],
   "customizations": {
     "vscode": {
       "extensions": [
@@ -12,7 +15,9 @@
       ]
     }
   },
-  "mounts": ["source=.,target=/app,type=bind"],
+  "mounts": [
+    "source=.,target=/app,type=bind"
+  ],
   "workspaceFolder": "/app",
   "remoteUser": "root"
 }

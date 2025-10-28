@@ -1,22 +1,36 @@
-# .devcontainer/Dockerfile
+# ベースイメージ
 FROM ubuntu:22.04
 
-# 必要なパッケージをインストール
+# 必要ツール
 RUN apt-get update && apt-get install -y \
     build-essential \
     cmake \
+    git \
+    curl \
+    wget \
     python3 \
     python3-pip \
-    git \
-    wget \
-    vim \
-    && apt-get clean
+    unzip \
+    pkg-config \
+    libssl-dev \
+    && rm -rf /var/lib/apt/lists/*
 
-# llama.cppビルド用
-RUN apt-get install -y clang make
-
-# Python仮想環境ツール
-RUN pip install --upgrade pip uv
+# CPU最適化用の環境変数
+ENV CMAKE_C_FLAGS="-march=native -O3"
+ENV CMAKE_CXX_FLAGS="-march=native -O3"
 
 # 作業ディレクトリ
+WORKDIR /app
+
+# Python仮想環境
+RUN python3 -m venv /opt/venv
+ENV PATH="/opt/venv/bin:$PATH"
+
+# llama.cpp をビルド
+COPY llama.cpp/ /app/llama.cpp/
+RUN mkdir /app/llama.cpp/build && cd /app/llama.cpp/build && \
+    cmake -DLLAMA_CURL=OFF -DLLAMA_CPU_NO_AVX=OFF .. && \
+    cmake --build . --config Release
+
+# 作業ディレクトリに戻る
 WORKDIR /app
